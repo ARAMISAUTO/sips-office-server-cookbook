@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "accessList.dtd">
+<list>
+    <accept>
+<% node['sips-office-server']['service']['acl']['accept'].each do |ip| %>
+        <acceptAddress><%= ip %></acceptAddress>
+<% end %>
+    </accept>
+    <deny>
+<% node['sips-office-server']['service']['acl']['deny'].each do |ip| %>
+        <denyAddress><%= ip %></denyAddress>
+<% end %>
+    </deny>
+</list>

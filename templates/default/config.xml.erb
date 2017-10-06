@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration SYSTEM "config.dtd">
+<configuration>
+    <service>
+        <servicePort><%= node['sips-office-server']['service']['port'] %></servicePort>
+        <maxServiceRequest><%= node['sips-office-server']['service']['max_requests'] %></maxServiceRequest>
+        <queueSizeMaxService><%= node['sips-office-server']['service']['max_queue_size'] %></queueSizeMaxService>
+        <accessListService><%= node['sips-office-server']['install_dir_prefix'] %>/sips-office-server/server/access/accessListService.xml</accessListService>
+    </service>
+    <command>
+        <commandPort><%= node['sips-office-server']['command']['port'] %></commandPort>
+        <maxCommandRequest><%= node['sips-office-server']['command']['max_requests'] %></maxCommandRequest>
+        <queueSizeMaxCommand><%= node['sips-office-server']['command']['max_queue_size'] %></queueSizeMaxCommand>
+        <accessListCommand><%= node['sips-office-server']['install_dir_prefix'] %>/sips-office-server/server/access/accessListCommand.xml</accessListCommand>
+    </command>
+    <httpRequest>
+        <httpRequestPort><%= node['sips-office-server']['http_request']['port'] %></httpRequestPort>
+        <maxHttpRequest><%= node['sips-office-server']['http_request']['max_requests'] %></maxHttpRequest>
+        <queueSizeMaxHttpRequest><%= node['sips-office-server']['http_request']['max_queue_size'] %></queueSizeMaxHttpRequest>
+        <accessListHttpRequest><%= node['sips-office-server']['install_dir_prefix'] %>/sips-office-server/server/access/accessListHttpRequest.xml</accessListHttpRequest>
+    </httpRequest>
+    <watchdog>
+        <pollingTimer><%= node['sips-office-server']['watchdog']['port'] %></pollingTimer>
+        <survPort><%= node['sips-office-server']['watchdog']['polling_timer'] %></survPort>
+        <trace level="0" sizeLimit="1000" unit="Line" path="<%= node['sips-office-server']['log_dir'] %>" prefix="APIServer" />
+        <alternateTrace id="placeholder" path="<%= node['sips-office-server']['log_dir'] %>" prefix="placeholder" />
+<% node['sips-office-server']['components'].each do |component_name, component_archive| %>
+        <alternateTrace id="<%= component_name %>" path="<%= node['sips-office-server']['log_dir'] %>" prefix="<%= component_name %>" />
+<% end %>
+    </watchdog>
+    <documentRoot><%= node['sips-office-server']['install_dir_prefix'] %>/sips-office-server/server/HttpRoot</documentRoot>
+    <routing>
+        <componentDir><%= node['sips-office-server']['install_dir_prefix'] %>/sips-office-server/server/components</componentDir>
+    </routing>
+    <alert>
+        <alertURL><%= node['sips-office-server']['alert']['url'] %></alertURL>
+        <alertProxyHost><%= node['sips-office-server']['alert']['proxy_host'] %></alertProxyHost>
+        <alertProxyPort><%= node['sips-office-server']['alert']['proxy_port'] %></alertProxyPort>
+    </alert>
+    <components>
+        <pathfile id="placeholder" path="na" />
+<% node['sips-office-server']['components'].each do |component_name, component_archive| %>
+        <pathfile id="<%= component_name %>" path="<%= node['sips-office-server']['install_dir_prefix'] %>/sips-office-server/<%= component_name %>/param/pathfile" />
+<% end %>
+    </components>
+</configuration>
