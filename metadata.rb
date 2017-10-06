@@ -20,6 +20,6 @@ chef_version '>= 12.1' if respond_to?(:chef_version)
 # source_url 'https://github.com/<insert_org_here>/sips-office-server'
 
 depends 'apt', '~> 6.1.4'
-depends 'ark', '~> 3.1.0'
+depends 'ark', '~> 1.1.0'
 depends 'java', '~> 1.42.0'
 depends 'poise-service', '~> 1.5.2'
